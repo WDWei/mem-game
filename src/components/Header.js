@@ -1,7 +1,19 @@
 //import React, { useState } from "react";
-import ahri from '../images/Ahri_SpiritBlossomSkin.webp'
-import cait from  '../images/Caitlyn_SnowMoonSkin.webp'
+import ahri from '../assets/Ahri_SpiritBlossomSkin.webp'
+import cait from  '../assets/Caitlyn_SnowMoonSkin.webp'
 import './Header.css';
+
+function importAll(r) {
+    const images = new Array();
+     r.keys().forEach((item, index) => { 
+        let fileName = item.replace('./', '');
+        let idx = fileName.indexOf('_');
+        let name = fileName.slice(0,idx);
+        images.push([name,r(item)]); });
+    return images
+   }
+
+const images = importAll(require.context('../assets', false, /\.(webp)$/));
 
 
 function Header({currScore,bestScore}) {
@@ -23,10 +35,10 @@ function Board() {
     return (
         //To swap to map of name and char with and another map with clicked?
         <div className="board">
-             <Card characterPot = {ahri}
-                   characterName = "Ahri"/>
-             <Card characterPot = {cait}
-                   characterName = "Caitlyn"/>
+             <Card characterPot = {images[0][1]}
+                   characterName = {images[0][0]}/>
+             <Card characterPot = {images[4][1]}
+                   characterName = {images[4][0]}/>
         </div>
       );
 }
