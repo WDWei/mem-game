@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/WDWei/mem-game/static/css/main.6504205a.css",
+    "main.js": "/WDWei/mem-game/static/js/main.48f1640a.js",
+    "static/media/Akshan_CyberPopSkin.webp": "/WDWei/mem-game/static/media/Akshan_CyberPopSkin.61d5268954727731fb69.webp",
+    "static/media/Katarina_FaerieCourtSkin.webp": "/WDWei/mem-game/static/media/Katarina_FaerieCourtSkin.e305fda2ad0a55f4de72.webp",
+    "static/media/KaiSa_LagoonDragonSkin.webp": "/WDWei/mem-game/static/media/KaiSa_LagoonDragonSkin.9497648347aa40954b62.webp",
+    "static/media/Azir_Worlds2022Skin.webp": "/WDWei/mem-game/static/media/Azir_Worlds2022Skin.f1292236431a6476ea52.webp",
+    "static/media/Ashe_LunarEmpressSkin.webp": "/WDWei/mem-game/static/media/Ashe_LunarEmpressSkin.60c69edb0e9a3e7a1715.webp",
+    "static/media/LeBlanc_BewitchingSkin.webp": "/WDWei/mem-game/static/media/LeBlanc_BewitchingSkin.852d3253175ddf549419.webp",
+    "static/media/MissFortune_PrestigeBrokenCovenantSkin.webp": "/WDWei/mem-game/static/media/MissFortune_PrestigeBrokenCovenantSkin.56b253b8d60f5ba2efcd.webp",
+    "static/media/Aphelios_SpiritBlossomSkin.webp": "/WDWei/mem-game/static/media/Aphelios_SpiritBlossomSkin.9a48d41256f2d4ded2f2.webp",
+    "static/media/Alistar_LunarBeastSkin.webp": "/WDWei/mem-game/static/media/Alistar_LunarBeastSkin.51926a9fe0ebe09d7ee4.webp",
+    "static/media/Annie_LunarBeastSkin.webp": "/WDWei/mem-game/static/media/Annie_LunarBeastSkin.ddd56d42e6e5f7bd688b.webp",
+    "static/media/Anivia_DivinePhoenixSkin.webp": "/WDWei/mem-game/static/media/Anivia_DivinePhoenixSkin.04193ba0a5fa2d27b250.webp",
+    "static/media/Akali_StarGuardianSkin.webp": "/WDWei/mem-game/static/media/Akali_StarGuardianSkin.908216e624031dc013a4.webp",
+    "static/media/Bard_AstronautSkin.webp": "/WDWei/mem-game/static/media/Bard_AstronautSkin.1aefaecbcf986ecea891.webp",
+    "static/media/Aurelion_Sol_MechaSkin.webp": "/WDWei/mem-game/static/media/Aurelion_Sol_MechaSkin.677ea3d794c133ca8ab2.webp",
+    "static/media/Karma_TranquilityDragonSkin.webp": "/WDWei/mem-game/static/media/Karma_TranquilityDragonSkin.a2d8ef63c920d3ddae70.webp",
+    "static/media/Blitzcrank_VictoriousSkin.webp": "/WDWei/mem-game/static/media/Blitzcrank_VictoriousSkin.6f7aa12c407ae79cd4db.webp",
+    "static/media/Caitlyn_SnowMoonSkin.webp": "/WDWei/mem-game/static/media/Caitlyn_SnowMoonSkin.c8a68bff1b79041c4cc8.webp",
+    "static/media/Amumu_InfernalSkin.webp": "/WDWei/mem-game/static/media/Amumu_InfernalSkin.d2eccac57208e7871e5f.webp",
+    "static/media/Aatrox_PrestigeBloodMoonSkin.webp": "/WDWei/mem-game/static/media/Aatrox_PrestigeBloodMoonSkin.e06301fc7355d118ee4c.webp",
+    "static/media/Bel Veth_BattleBossSkin.webp": "/WDWei/mem-game/static/media/Bel Veth_BattleBossSkin.1b08a8cce7cce9bab093.webp",
+    "static/media/Ahri_SpiritBlossomSkin.webp": "/WDWei/mem-game/static/media/Ahri_SpiritBlossomSkin.da771b98d5ca5565e0e3.webp",
+    "index.html": "/WDWei/mem-game/index.html",
+    "main.6504205a.css.map": "/WDWei/mem-game/static/css/main.6504205a.css.map",
+    "main.48f1640a.js.map": "/WDWei/mem-game/static/js/main.48f1640a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6504205a.css",
+    "static/js/main.48f1640a.js"
+  ]
+}
