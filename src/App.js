@@ -6,10 +6,12 @@ function App() {
   const [currScore, setCurrScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
 
+
+
   return (
     <div>
       <Header currScore={currScore} bestScore={bestScore}/>
-      <Board />
+      <Board  setCurrScore = {[currScore, setCurrScore]} setBestScore = {[bestScore, setBestScore]}/>
     </div>
     // <div className="App">
     //     <div>Hello World</div>;
