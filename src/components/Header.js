@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import ahri from '../assets/Ahri_SpiritBlossomSkin.webp'
-import cait from  '../assets/Caitlyn_SnowMoonSkin.webp'
 import './Header.css';
 
 function importAll(r) {
-    const images = new Array();
+    const images = [];
      r.keys().forEach((item, index) => { 
         let fileName = item.replace('./', '');
         let idx = fileName.indexOf('_');
@@ -77,12 +75,14 @@ function Board({setCurrScore,setBestScore,setMaxScore}) {
             if(i === index)
             {
                 if (c === false)
-                    return c = true;
+                {
+                    c = true;
+                    return c;
+                }
                 else
-                gameOver = true;
+                    gameOver = true;
             }
-            else
-                return c;          
+            return c;          
         });
         setonceArr(updatedOnceArr);
         return gameOver;
