@@ -5,17 +5,17 @@ import {Header, Board} from './components/Header';
 function App() {
   const [currScore, setCurrScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [maxScore, setMaxScore] = useState(0);
 
 
 
   return (
     <div>
-      <Header currScore={currScore} bestScore={bestScore}/>
-      <Board  setCurrScore = {[currScore, setCurrScore]} setBestScore = {[bestScore, setBestScore]}/>
+      <Header currScore={currScore} bestScore={bestScore} maxScore={maxScore}/>
+      <Board  setCurrScore = {[currScore, setCurrScore]} 
+              setBestScore = {[bestScore, setBestScore]}
+              setMaxScore = {setMaxScore}/>
     </div>
-    // <div className="App">
-    //     <div>Hello World</div>;
-    // </div>
   );
 }
 

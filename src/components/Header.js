@@ -15,6 +15,7 @@ function importAll(r) {
 
 const images = importAll(require.context('../assets', false, /\.(webp)$/));
 //Random cannot get 0
+const max_val = images.length;
 images.unshift(['',"How did you get here?"]);
 
 function getRandomIntInclusive(min, max) {
@@ -24,7 +25,7 @@ function getRandomIntInclusive(min, max) {
 }
 
 
-function Header({currScore,bestScore}) {
+function Header({currScore,bestScore, maxScore}) {
     return (
         <div className="head">
             <div>
@@ -32,6 +33,7 @@ function Header({currScore,bestScore}) {
                 <div className="scoreContent">
                     <p> Current Score: {currScore}</p>
                     <p> Best Score: {bestScore}</p>
+                    <p> Max Score: {maxScore}</p>
                 </div>
                 <p> Get points by clicking on an image but don't click on any more than once!</p>
             </div>
@@ -39,14 +41,16 @@ function Header({currScore,bestScore}) {
       );
 }
 
-function Board({setCurrScore,setBestScore}) {
+function Board({setCurrScore,setBestScore,setMaxScore}) {
 
     const [onceArr, setonceArr] = useState(Array(images.length).fill(false));
     const [uniqueValArr, setUnqiueValArr] = useState(Array(images.length - 1).fill().map((_,i) => i+1))
+    setMaxScore(max_val);
 
     function shuffleUniqueArray()
     {
-        let newshuffle = uniqueValArr;
+        //Only this lets React know it has to be updated using the ...
+        let newshuffle = [...uniqueValArr];
         for(let i = 0; i < newshuffle.length; i++)
         {
             let j = getRandomIntInclusive(1,i)
@@ -96,7 +100,7 @@ function Board({setCurrScore,setBestScore}) {
         {
             setCurrScore[1](setCurrScore[0] + 1)
         }
-        shuffleUniqueArray()
+        shuffleUniqueArray();
     }
         
 
@@ -106,16 +110,28 @@ function Board({setCurrScore,setBestScore}) {
              <Card characterPot = {images[uniqueValArr[0]][1]}
                    characterName = {images[uniqueValArr[0]][0]}
                    onCardClick =  {() => {handleClick(uniqueValArr[0])}}/>
-             <Card characterPot = {images[4][1]}
-                   characterName = {images[4][0]}/>
-             <Card characterPot = {images[4][1]}
-                   characterName = {images[4][0]}/>
-             <Card characterPot = {images[5][1]}
-                   characterName = {images[5][0]}/>
-             <Card characterPot = {images[6][1]}
-                   characterName = {images[6][0]}/>
-             <Card characterPot = {images[4][1]}
-                   characterName = {images[4][0]}/>
+             <Card characterPot = {images[uniqueValArr[1]][1]}
+                   characterName = {images[uniqueValArr[1]][0]}
+                   onCardClick =  {() => {handleClick(uniqueValArr[1])}}/>
+             <Card characterPot = {images[uniqueValArr[2]][1]}
+                   characterName = {images[uniqueValArr[2]][0]}
+                   onCardClick =  {() => {handleClick(uniqueValArr[2])}}/>
+             <Card characterPot = {images[uniqueValArr[3]][1]}
+                   characterName = {images[uniqueValArr[3]][0]}
+                   onCardClick =  {() => {handleClick(uniqueValArr[3])}}/>
+             <Card characterPot = {images[uniqueValArr[4]][1]}
+                   characterName = {images[uniqueValArr[4]][0]}
+                   onCardClick =  {() => {handleClick(uniqueValArr[4])}}/>
+             <Card characterPot = {images[uniqueValArr[5]][1]}
+                   characterName = {images[uniqueValArr[5]][0]}
+                   onCardClick =  {() => {handleClick(uniqueValArr[5])}}/>
+             <Card characterPot = {images[uniqueValArr[6]][1]}
+                   characterName = {images[uniqueValArr[6]][0]}
+                   onCardClick =  {() => {handleClick(uniqueValArr[6])}}/> 
+             <Card characterPot = {""}
+                   characterName = {"Click this to refresh"}
+                   onCardClick =  {() => {shuffleUniqueArray()}}/>         
+                             
         </div>
       );
 }
@@ -123,7 +139,7 @@ function Board({setCurrScore,setBestScore}) {
 function Card({characterName,characterPot, onCardClick}) {
     return (
         <div className="card" onClick={onCardClick}>
-            <img src={characterPot} alt="Avatar"/>
+            <img src={characterPot} alt="No-Name"/>
             <div className="container">
                 <h4><b>{characterName}</b></h4>
             </div>
