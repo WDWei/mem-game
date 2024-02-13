@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import './Header.css';
+import {getRandomIntInclusive} from "./Utils"
+
 
 function importAll(r) {
     const images = [];
@@ -15,12 +17,6 @@ const images = importAll(require.context('../assets', false, /\.(webp)$/));
 //Random cannot get 0
 const max_val = images.length;
 images.unshift(['',"How did you get here?"]);
-
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min); 
-}
 
 
 function Header({currScore,bestScore, maxScore}) {
