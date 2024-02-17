@@ -10,8 +10,10 @@ function App() {
   let isNew = true;
 
   return (
-  isNew ? 
-  <BoardContainer/> :
+  isNew ?
+  <div className='flex justify-center items-start min-h-screen bg-beige mx-[20px]'>
+    <BoardContainer/> 
+  </div> :
     <div>
       <Header currScore={currScore} bestScore={bestScore} maxScore={maxScore}/>
       <Board  setCurrScore = {[currScore, setCurrScore]} 

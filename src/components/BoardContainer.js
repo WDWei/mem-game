@@ -2,6 +2,7 @@ import React, {useEffect, useState } from "react";
 import { Card } from "./Card";
 import { HeaderV2} from "./HeaderV2";
 import {getRandomIntInclusive} from "./Utils"
+import {ControlButton} from "./ControlButton"
 
 function BoardContainer() {
     const [currScore, setCurrScore] = useState(0);
@@ -12,7 +13,8 @@ function BoardContainer() {
     const [champSelection, setChampSelection] = useState([]); 
     const [champPicked, addChampPicked] = useState([]); 
     const [isGameEnabled, setGameEnabled] = useState(true);
-    const [gameState, setGameState] = useState(['start','ingame','again']);
+    const [gameState, setGameState] = useState('start');
+    // ['start','ingame','again']
     // Need to store as state to update asap cuase it was rendered before updating
     let sourceImg = "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"
 
@@ -98,12 +100,12 @@ function BoardContainer() {
 
 
     return (
-        <div>
+        <div className="min-w-[90rem] min-h-screen flex flex-col items-center justify-between bg-teal-300 mx-20 px-12">
             <HeaderV2 currScore = {currScore}
                         bestScore = {bestScore}
                         numberOfChampion={numberOfChampion}
                         setNumberOfChampion={setNumberOfChampion} />
-            <div>
+            <div className="w-inherit flex gap-x-8 justify-evenly ">
                 { champSelection.slice(0,8).map((value) => {
                     return <Card 
                             key={value} //To remove ReactJS error about keys
@@ -112,13 +114,8 @@ function BoardContainer() {
                             onCardClick = {() => {handleGameClick(value)}}>
                             </Card>
                         })}
-                        {/* <img src= {sourceImg + 'Sona' + '_' + '0' + '.jpg'}></img> */}
             </div>
-            <button onClick={() => handleGameStart()} className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-            Click to start
-            </span>
-            </button>
+            <ControlButton handleGame={handleGameStart}/>
         </div>
       );
 }
