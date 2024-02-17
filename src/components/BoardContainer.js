@@ -6,11 +6,13 @@ import {getRandomIntInclusive} from "./Utils"
 function BoardContainer() {
     const [currScore, setCurrScore] = useState(0);
     const [bestScore, setBestScore] = useState(0);
-    const [maxScore, setMaxScore] = useState(0);
     const [champData, setChampData] = useState([]); 
+    const [champDataKeys, setChampDataKeys] = useState([]);
+    const [numberOfChampion, setNumberOfChampion] = useState('8');
     const [champSelection, setChampSelection] = useState([]); 
     const [champPicked, addChampPicked] = useState([]); 
-    const [isChampionEnabled, setChampionEnabled] = useState(true);
+    const [isGameEnabled, setGameEnabled] = useState(true);
+    const [gameState, setGameState] = useState(['start','ingame','again']);
     // Need to store as state to update asap cuase it was rendered before updating
     let sourceImg = "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"
 
@@ -19,21 +21,9 @@ function BoardContainer() {
         const res = await fetch('https://ddragon.leagueoflegends.com/cdn/14.3.1/data/en_US/champion.json');
         const text = await res.json();
         const champArr = (Object.keys(text.data));
-        const charSelect = new Set();
         setChampData(champArr);
         let champIDArr = Array.from(Array(champArr.length).keys());
-
-        //Initial roll of random champ parked here first before a button gets pressed
-        //Must be here due to async and await
-        for(let i = 0; i < 10; i++) {
-            let value = getRandomIntInclusive(0,champIDArr.length -1);
-            if(!charSelect.has(value))
-                charSelect.add(value)
-            else
-                i--;
-        }
-        console.log('the random',charSelect )
-        setChampSelection(Array.from(charSelect))
+        setChampDataKeys(champIDArr);
     }
 
     function shuffleUniqueArray()
@@ -54,8 +44,10 @@ function BoardContainer() {
         setChampSelection(newshuffle)
     }
     
+
+    //Main Game Logic
     function handleGameClick (value) {
-        if(isChampionEnabled){          
+        if(isGameEnabled){          
             if(!champPicked.includes(value)){
                 //Set counter++
                 setCurrScore(currScore + 1);
@@ -66,7 +58,7 @@ function BoardContainer() {
                 //Gameover change screen blah blah
                 setBestScore(currScore);
                 //setCurrScore(0); 
-                setChampionEnabled(false);         
+                setGameEnabled(false);         
             }
             console.log('best',bestScore);
             console.log('curr',currScore);
@@ -76,18 +68,26 @@ function BoardContainer() {
 
 
         }
-
-        // if(updateOnceArr(index))
-        // {
-        //     if(setBestScore[0] < setCurrScore[0])
-        //         setBestScore[1](setCurrScore[0]);
-        //     setCurrScore[1](0);
-        //     resetBoard(false);
-        // }
-        // else
-        // {
-        //     setCurrScore[1](setCurrScore[0] + 1)
-        // }
+    }
+    //GameStart Logic to shuffle the characters
+    function handleGameStart () {
+        console.log('HandleGameStart');
+        const charSelect = new Set();
+        //Initial roll of random champ parked here first before a button gets pressed
+        //Must be here due to async and await
+        let value = parseInt(numberOfChampion);
+        for(let i = 0; i < value; i++) {
+            let value = getRandomIntInclusive(0,champDataKeys.length -1);
+            if(!charSelect.has(value))
+                charSelect.add(value)
+            else
+                i--;
+        }
+        console.log(charSelect);
+        //Set and reset values to start new game
+        setChampSelection(Array.from(charSelect))
+        addChampPicked([]);
+        console.log(champData.length);
     }
 
     useEffect(()=> {
@@ -99,8 +99,10 @@ function BoardContainer() {
 
     return (
         <div>
-            <h1 className="font-headers text-3xl font-bold underline"> Hello World!</h1>
-            <HeaderV2 currScore = {currScore} bestScore = {bestScore}/>
+            <HeaderV2 currScore = {currScore}
+                        bestScore = {bestScore}
+                        numberOfChampion={numberOfChampion}
+                        setNumberOfChampion={setNumberOfChampion} />
             <div>
                 { champSelection.slice(0,8).map((value) => {
                     return <Card 
@@ -110,11 +112,11 @@ function BoardContainer() {
                             onCardClick = {() => {handleGameClick(value)}}>
                             </Card>
                         })}
-                        <img src= {sourceImg + 'Sona' + '_' + '0' + '.jpg'}></img>
+                        {/* <img src= {sourceImg + 'Sona' + '_' + '0' + '.jpg'}></img> */}
             </div>
-            <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+            <button onClick={() => handleGameStart()} className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
             <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-            Cyan to blue
+            Click to start
             </span>
             </button>
         </div>
