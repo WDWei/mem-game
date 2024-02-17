@@ -4,19 +4,21 @@ function HeaderV2({currScore,bestScore, numberOfChampion,setNumberOfChampion}) {
 
     function increaseValue() {
         let value = parseInt(numberOfChampion);
-        value += 1;
+        if(!(value >= 167))
+            value += 1;
         setNumberOfChampion(value.toString());
     }
 
     function decreaseValue() {
         let value = parseInt(numberOfChampion);
-        value -= 1;
+        if(!value <= 1)
+            value -= 1;
         setNumberOfChampion(value.toString());
     }
 
     return (
-        <div className="flex max-w">
-            <form className="max-w-xs mx-auto">
+        <div className="w-full flex justify-between items-center pt-12">
+            <form className="max-w-xs">
                 <label for="quantity-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose number of champions to memorise:</label>
                 <div className="relative flex items-center max-w-[8rem]">
                     <button type="button" id="decrement-button" onClick={() => decreaseValue()} className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
@@ -29,7 +31,11 @@ function HeaderV2({currScore,bestScore, numberOfChampion,setNumberOfChampion}) {
                             onChange={(e) => {
                                 // \D checks non-digit, g match all non-digit and replace with empty string
                                 const result = e.target.value.replace(/\D/g, '');
-                                setNumberOfChampion(result);
+                                const value = parseInt(result);
+                                if(value >= 167 || value <= 1)
+                                    setNumberOfChampion('8')
+                                else
+                                    setNumberOfChampion(result);
                             }}
                             value={numberOfChampion}
                             onBlur={() => {}}
@@ -43,7 +49,7 @@ function HeaderV2({currScore,bestScore, numberOfChampion,setNumberOfChampion}) {
                 </div>
                 <p id="helper-text-explanation" className="mt-2 text-sm text-gray-500 dark:text-gray-400">Please select a digit number from 1 to 167.</p>
             </form>
-            <h1 className="font-headers text-3xl font-bold underline"> LEAGUE OF MEMORY</h1>
+            <h1 className="text-7xl font-headers font-bold underline"> LEAGUE OF MEMORY</h1>
             <div className="">
                 <h1> Best Score: {bestScore}</h1>
                 <h1> Current Score: {currScore}</h1>
