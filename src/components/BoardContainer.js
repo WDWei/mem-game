@@ -60,7 +60,8 @@ function BoardContainer() {
                 //Gameover change screen blah blah
                 setBestScore(currScore);
                 //setCurrScore(0); 
-                setGameEnabled(false);         
+                setGameEnabled(false);
+                setGameState('again');         
             }
             console.log('best',bestScore);
             console.log('curr',currScore);
@@ -74,22 +75,29 @@ function BoardContainer() {
     //GameStart Logic to shuffle the characters
     function handleGameStart () {
         console.log('HandleGameStart');
-        const charSelect = new Set();
-        //Initial roll of random champ parked here first before a button gets pressed
-        //Must be here due to async and await
-        let value = parseInt(numberOfChampion);
-        for(let i = 0; i < value; i++) {
-            let value = getRandomIntInclusive(0,champDataKeys.length -1);
-            if(!charSelect.has(value))
-                charSelect.add(value)
-            else
-                i--;
+        console.log('hello?',gameState)
+        if(gameState === 'start'){
+            const charSelect = new Set();
+            //Initial roll of random champ parked here first before a button gets pressed
+            //Must be here due to async and await
+            let value = parseInt(numberOfChampion);
+            for(let i = 0; i < value; i++) {
+                let value = getRandomIntInclusive(0,champDataKeys.length -1);
+                if(!charSelect.has(value))
+                    charSelect.add(value)
+                else
+                    i--;
+            }
+            console.log(charSelect);
+            //Set and reset values to start new game
+            setChampSelection(Array.from(charSelect))
+            addChampPicked([]);
+            setGameState('ingame');
+            console.log(champData.length);
         }
-        console.log(charSelect);
-        //Set and reset values to start new game
-        setChampSelection(Array.from(charSelect))
-        addChampPicked([]);
-        console.log(champData.length);
+        else if(gameState === 'ingame'){
+            shuffleUniqueArray();
+        }
     }
 
     useEffect(()=> {
@@ -115,7 +123,7 @@ function BoardContainer() {
                             </Card>
                         })}
             </div>
-            <ControlButton handleGame={handleGameStart}/>
+            <ControlButton gameState={gameState} handleGame={handleGameStart}/>
         </div>
       );
 }
