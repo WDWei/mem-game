@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from "react";
 import { Card } from "./Card";
 import { HeaderV2} from "./HeaderV2";
-import {getRandomIntInclusive} from "./Utils"
+import {getRandomIntInclusive, timedPromise} from "./Utils"
 import {ControlButton} from "./ControlButton"
 
 function BoardContainer() {
@@ -14,6 +14,7 @@ function BoardContainer() {
     const [champPicked, addChampPicked] = useState([]); 
     const [isGameEnabled, setGameEnabled] = useState(true);
     const [gameState, setGameState] = useState('start');
+    const [isCardFront, setCardFront] = useState(true);
     // ['start','ingame','again']
     // Need to store as state to update asap cuase it was rendered before updating
     let sourceImg = "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"
@@ -54,14 +55,14 @@ function BoardContainer() {
                 //Set counter++
                 setCurrScore(currScore + 1);
                 addChampPicked(curr => [...curr, value])
-                shuffleUniqueArray();
+                setCardFront(false);   
             }
             else {
                 //Gameover change screen blah blah
                 setBestScore(currScore);
                 //setCurrScore(0); 
                 setGameEnabled(false);
-                setGameState('again');         
+                setGameState('again'); 
             }
             console.log('best',bestScore);
             console.log('curr',currScore);
@@ -104,22 +105,34 @@ function BoardContainer() {
         getChampions();
     }
     ,[])
+    //Shuffle in useEffect to avoid jarring view
+    //Double timed promise to shuffle asap then wait to reveal
+    useEffect(()=> {
+        if(gameState === 'ingame') {
+            timedPromise(50).then(() => {
+                shuffleUniqueArray();
+                timedPromise(650).then(() => {setCardFront(true);})   
+            })        
+        }
+    }
+    ,[isCardFront])
 
 
 
     return (
-        <div className="min-w-[90rem] min-h-screen flex flex-col items-center justify-between bg-teal-300 mx-20 px-12">
+        <div className="w-full min-h-screen flex flex-col items-center justify-between mx-20 px-12">
             <HeaderV2 currScore = {currScore}
                         bestScore = {bestScore}
                         numberOfChampion={numberOfChampion}
                         setNumberOfChampion={setNumberOfChampion} />
-            <div className="w-inherit flex gap-x-8 justify-evenly ">
-                { champSelection.slice(0,8).map((value) => {
+            <div className="flex flex-wrap gap-6 justify-around py-8">
+                { champSelection.slice(0,8).map((value,i) => {
                     return <Card 
-                            key={value} //To remove ReactJS error about keys
+                            key={i} //To remove ReactJS error about keys
                             characterName = {champData[value]}
                             characterPot =  {`${sourceImg}${champData[value]}_0.jpg`}
-                            onCardClick = {() => {handleGameClick(value)}}>
+                            onCardClick = {() => {handleGameClick(value)}}
+                            isCardFront = {isCardFront}>
                             </Card>
                         })}
             </div>
