@@ -8,12 +8,15 @@ module.exports = {
       },
       height: {
         '128': '128px',
-      }
+      },
+      colors: {
+        'greyForBG': '#00000091',
+      },
     },
     fontFamily:{
       'headers': ['Beaufort','Arial'],
-      'body': ['Spiegel','"Open Sans"'],
-    }
+      'body': ['Spiegel','"Open Sans"']
+    },
   },
   plugins: [],
 }
