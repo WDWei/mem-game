@@ -3,6 +3,7 @@ import { Card } from "./Card";
 import { HeaderV2} from "./HeaderV2";
 import {getRandomIntInclusive, timedPromise} from "./Utils"
 import {ControlButton} from "./ControlButton"
+import {getScoreCache,setScoreCache} from "./ScoreCache"
 
 function BoardContainer() {
     const [currScore, setCurrScore] = useState(0);
@@ -27,6 +28,14 @@ function BoardContainer() {
         setChampData(champArr);
         let champIDArr = Array.from(Array(champArr.length).keys());
         setChampDataKeys(champIDArr);
+    }
+
+    async function getLocalBestScore() {
+        const ScoreCache = getScoreCache();
+        console.log(ScoreCache);
+        if(ScoreCache['bestScore']) {
+            setBestScore(ScoreCache['bestScore']);
+        }
     }
 
     function shuffleUniqueArray()
@@ -59,8 +68,10 @@ function BoardContainer() {
             }
             else {
                 //Gameover change screen blah blah
-                setBestScore(currScore);
-                //setCurrScore(0); 
+                if(currScore > bestScore){
+                    setBestScore(currScore);
+                    setScoreCache(currScore);
+                }
                 setGameEnabled(false);
                 setGameState('again'); 
             }
@@ -75,9 +86,7 @@ function BoardContainer() {
     }
     //GameStart Logic to shuffle the characters
     function handleGameStart () {
-        console.log('HandleGameStart');
-        console.log('hello?',gameState)
-        if(gameState === 'start'){
+        function setNewGame() {
             const charSelect = new Set();
             //Initial roll of random champ parked here first before a button gets pressed
             //Must be here due to async and await
@@ -92,17 +101,28 @@ function BoardContainer() {
             console.log(charSelect);
             //Set and reset values to start new game
             setChampSelection(Array.from(charSelect))
+            setGameEnabled(true);
             addChampPicked([]);
+            setCurrScore(0);
             setGameState('ingame');
+            setCardFront(false);
+        }
+        console.log('hello?',gameState)
+        if(gameState === 'start'){
+            setNewGame();
             console.log(champData.length);
         }
         else if(gameState === 'ingame'){
-            shuffleUniqueArray();
+            setCardFront(false);
+        }
+        else if(gameState === 'again') {
+            setNewGame();
         }
     }
 
     useEffect(()=> {
         getChampions();
+        getLocalBestScore();
     }
     ,[])
     //Shuffle in useEffect to avoid jarring view
@@ -111,7 +131,7 @@ function BoardContainer() {
         if(gameState === 'ingame') {
             timedPromise(50).then(() => {
                 shuffleUniqueArray();
-                timedPromise(650).then(() => {setCardFront(true);})   
+                timedPromise(500).then(() => {setCardFront(true);})   
             })        
         }
     }
@@ -136,7 +156,7 @@ function BoardContainer() {
                             </Card>
                         })}
             </div>
-            <ControlButton gameState={gameState} handleGame={handleGameStart}/>
+            <ControlButton gameState={gameState} handleGame={handleGameStart} isCardFront={isCardFront}/>
         </div>
       );
 }
