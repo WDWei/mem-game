@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "./Card";
 
 
-function StartGameScreen({}) {
+function StartGameScreen() {
     return (
         <div className="font-body text-white text-2xl flex flex-col items-start bg-greyForBG rounded-2xl p-4 gap-4">
             <div className="text-3xl underline self-center"> RULES</div>
