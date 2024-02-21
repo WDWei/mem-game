@@ -32,12 +32,12 @@ function BoardContainer() {
 
     async function getLocalBestScore() {
         const ScoreCache = getScoreCache();
-        console.log(ScoreCache);
         if(ScoreCache['bestScore']) {
             setBestScore(ScoreCache['bestScore']);
         }
     }
 
+    //Shuffle the Array
     function shuffleUniqueArray()
     {
         //Only this lets React know it has to be updated using the ...
@@ -84,8 +84,6 @@ function BoardContainer() {
             else {
                 setGameover();
             }
-            console.log('best',bestScore);
-            console.log('curr',currScore);
         }
         else{
             //OnClcik to do nothing when clicked when game is over;
@@ -112,7 +110,6 @@ function BoardContainer() {
                 else
                     i--;
             }
-            console.log(charSelect);
             //Set and reset values to start new game
             setNumberOfChampion(value);
             setChampSelection(Array.from(charSelect))
@@ -122,10 +119,8 @@ function BoardContainer() {
             setGameState('ingame');
             setCardFront(false);
         }
-        console.log('hello?',gameState)
         if(gameState === 'start'){
             setNewGame();
-            console.log(champData.length);
         }
         else if(gameState === 'ingame'){
             setCardFront(false);
