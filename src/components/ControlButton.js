@@ -29,19 +29,19 @@ function RetryGameButton({}) {
 }
 
 
-function ControlButton({gameState,handleGame, isCardFront}) {
+function ControlButton({gameState, isCardFront, handleGame}) {
     console.log('state',gameState);
     console.log('isCardFront',isCardFront);
     function gameStateHandler(gameState){
         switch(gameState) {
             case 'start':
-                return <StartGameButton handleGame={handleGame}/>;
+                return <StartGameButton />;
             case 'ingame':
-                return <InGameButton handleGame={handleGame}/>;
+                return <InGameButton />;
             case 'again':
-                return <RetryGameButton handleGame={handleGame} />
+                return <RetryGameButton />
             default:
-                return <StartGameButton handleGame={handleGame}/>;
+                return <StartGameButton />;
         }
     }
     return (

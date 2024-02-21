@@ -1,9 +1,9 @@
 import React, {useEffect, useState } from "react";
-import { Card } from "./Card";
 import { HeaderV2} from "./HeaderV2";
 import {getRandomIntInclusive, timedPromise} from "./Utils"
 import {ControlButton} from "./ControlButton"
 import {getScoreCache,setScoreCache} from "./ScoreCache"
+import { PlayContainer } from "./PlayContainer";
 
 function BoardContainer() {
     const [currScore, setCurrScore] = useState(0);
@@ -18,7 +18,7 @@ function BoardContainer() {
     const [isCardFront, setCardFront] = useState(true);
     // ['start','ingame','again']
     // Need to store as state to update asap cuase it was rendered before updating
-    let sourceImg = "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"
+    const sourceImg = "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"
 
 
     async function getChampions() {
@@ -145,18 +145,14 @@ function BoardContainer() {
                         bestScore = {bestScore}
                         numberOfChampion={numberOfChampion}
                         setNumberOfChampion={setNumberOfChampion} />
-            <div className="flex flex-wrap gap-6 justify-around py-8">
-                { champSelection.slice(0,8).map((value,i) => {
-                    return <Card 
-                            key={i} //To remove ReactJS error about keys
-                            characterName = {champData[value]}
-                            characterPot =  {`${sourceImg}${champData[value]}_0.jpg`}
-                            onCardClick = {() => {handleGameClick(value)}}
-                            isCardFront = {isCardFront}>
-                            </Card>
-                        })}
-            </div>
-            <ControlButton gameState={gameState} handleGame={handleGameStart} isCardFront={isCardFront}/>
+            <PlayContainer  gameState={gameState}
+                            champSelection={champSelection}
+                            champData = {champData}
+                            sourceImg = {sourceImg}
+                            isCardFront={isCardFront}
+                            handleGameClick = {handleGameClick}
+                             />
+            <ControlButton gameState={gameState} isCardFront={isCardFront} handleGame={handleGameStart} />
         </div>
       );
 }
