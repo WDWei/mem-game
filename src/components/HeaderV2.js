@@ -47,7 +47,6 @@ function HeaderV2({currScore,bestScore, numberOfChampion, gameState,champSelecti
                             onChange={(e) => {
                                 // \D checks non-digit, g match all non-digit and replace with empty string
                                 const result = e.target.value.replace(/\D/g, '');
-                                const value = parseInt(result);
                                     setNumberOfChampion(result);
                             }}
                             value={numberOfChampion}
