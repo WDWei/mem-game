@@ -1,6 +1,22 @@
 import React from "react";
 
-function HeaderV2({currScore,bestScore, numberOfChampion,setNumberOfChampion}) {
+function ShowGameResult({currScore, champSelection}) {
+    function isGameWon(currScore,champSelection) {
+        if(currScore === champSelection.length)
+            return true;
+        return false;
+    }
+    return (
+        <div className="text-7xl flex items-center justify-center bg-greyForBG rounded-2xl p-4 gap-4">
+            {isGameWon(currScore,champSelection) ?
+                <div className="text-gold-300"> VICTORY</div> :
+                 <div className="text-rose-700"> DEFEAT</div>}
+        </div>)
+}
+
+    
+
+function HeaderV2({currScore,bestScore, numberOfChampion, gameState,champSelection, setNumberOfChampion}) {
 
     function increaseValue() {
         let value = parseInt(numberOfChampion);
@@ -11,7 +27,7 @@ function HeaderV2({currScore,bestScore, numberOfChampion,setNumberOfChampion}) {
 
     function decreaseValue() {
         let value = parseInt(numberOfChampion);
-        if(!value <= 1)
+        if(!(value <= 2))
             value -= 1;
         setNumberOfChampion(value.toString());
     }
@@ -32,9 +48,6 @@ function HeaderV2({currScore,bestScore, numberOfChampion,setNumberOfChampion}) {
                                 // \D checks non-digit, g match all non-digit and replace with empty string
                                 const result = e.target.value.replace(/\D/g, '');
                                 const value = parseInt(result);
-                                if(value >= 167 || value <= 2)
-                                    setNumberOfChampion('8')
-                                else
                                     setNumberOfChampion(result);
                             }}
                             value={numberOfChampion}
@@ -49,7 +62,7 @@ function HeaderV2({currScore,bestScore, numberOfChampion,setNumberOfChampion}) {
                 </div>
                 <p id="helper-text-explanation" className="mt-2 text-sm text-gray-300 dark:text-gray-400">Please select a digit number from 2 to 167.</p>
             </form>
-            {/* <div className="text-7xl font-headers font-bold"> LEAGUE OF MEMORY</> */}
+            {(gameState==='again') && <ShowGameResult currScore={currScore} champSelection={champSelection}/>}
             <div className="text-3xl flex flex-col items-end text-4xl bg-greyForBG rounded-2xl p-3">
                 <div> High Score: {bestScore}</div>
                 <div> Current Score: {currScore}</div>

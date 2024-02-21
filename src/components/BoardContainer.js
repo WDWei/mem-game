@@ -59,27 +59,36 @@ function BoardContainer() {
 
     //Main Game Logic
     function handleGameClick (value) {
+        function setGameover() {
+            if(currScore > bestScore){
+                setBestScore(currScore);
+                setScoreCache(currScore);
+            }
+            setGameEnabled(false);
+            setGameState('again'); 
+        }
+
         if(isGameEnabled){          
             if(!champPicked.includes(value)){
                 //Set counter++
-                setCurrScore(currScore + 1);
+                let score = currScore + 1;
+                setCurrScore(score);
                 addChampPicked(curr => [...curr, value])
-                setCardFront(false);   
+                //Victory condition on click
+                if(score === champSelection.length)
+                    setGameover();
+                else
+                    setCardFront(false);   
             }
+            //If click duplicate change to gameover
             else {
-                //Gameover change screen blah blah
-                if(currScore > bestScore){
-                    setBestScore(currScore);
-                    setScoreCache(currScore);
-                }
-                setGameEnabled(false);
-                setGameState('again'); 
+                setGameover();
             }
             console.log('best',bestScore);
             console.log('curr',currScore);
         }
         else{
-            // Swap to gameover gg cannot do anything until reset.
+            //OnClcik to do nothing when clicked when game is over;
 
 
         }
@@ -91,6 +100,11 @@ function BoardContainer() {
             //Initial roll of random champ parked here first before a button gets pressed
             //Must be here due to async and await
             let value = parseInt(numberOfChampion);
+            if(value > 167){
+                value = 167;
+            }
+            else if(value < 2)
+                value = 2;
             for(let i = 0; i < value; i++) {
                 let value = getRandomIntInclusive(0,champDataKeys.length -1);
                 if(!charSelect.has(value))
@@ -100,6 +114,7 @@ function BoardContainer() {
             }
             console.log(charSelect);
             //Set and reset values to start new game
+            setNumberOfChampion(value);
             setChampSelection(Array.from(charSelect))
             setGameEnabled(true);
             addChampPicked([]);
@@ -144,6 +159,8 @@ function BoardContainer() {
             <HeaderV2 currScore = {currScore}
                         bestScore = {bestScore}
                         numberOfChampion={numberOfChampion}
+                        champSelection={champSelection}
+                        gameState={gameState}
                         setNumberOfChampion={setNumberOfChampion} />
             <PlayContainer  gameState={gameState}
                             champSelection={champSelection}

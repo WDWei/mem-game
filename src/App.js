@@ -11,7 +11,7 @@ function App() {
 
   return (
   isNew ?
-  <div className='flex justify-center items-start min-h-screen bg-beige mx-[20px]'>
+  <div className='flex justify-center items-start min-h-screen  mx-[20px]'>
     <BoardContainer/> 
   </div> :
     <div>
