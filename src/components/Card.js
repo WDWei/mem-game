@@ -1,7 +1,6 @@
 import React from "react";
 
 //https://stackoverflow.com/questions/69864018/smooth-transition-on-menu-show-and-collapsed
-//Another way but its still uglier
 function Card({characterName,characterPot, onCardClick, isCardFront}) {
 
     

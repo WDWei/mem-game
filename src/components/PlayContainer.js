@@ -4,7 +4,7 @@ import { Card } from "./Card";
 
 function StartGameScreen({}) {
     return (
-        <div className="text-white text-2xl flex flex-col items-start text-4xl bg-greyForBG rounded-2xl p-4 gap-4">
+        <div className="font-body text-white text-2xl flex flex-col items-start bg-greyForBG rounded-2xl p-4 gap-4">
             <div className="text-3xl underline self-center"> RULES</div>
             <ul className="list-decimal list-inside space-y-4">
                 <li> Select the number of champions to memorise at <span className="underline">TOP LEFT</span></li>

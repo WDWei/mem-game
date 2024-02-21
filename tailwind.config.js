@@ -11,6 +11,10 @@ module.exports = {
       },
       colors: {
         'greyForBG': '#00000091',
+        'gold-100': '#F0E6D2',
+        'gold-200': '#C8AA6E',
+        'gold-300':'#C89B3C',
+        'gold-400':'#785A28',
       },
     },
     fontFamily:{
