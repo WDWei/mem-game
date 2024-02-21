@@ -1,25 +1,12 @@
-import './App.css';
-import React, {useState} from "react";
-import {Header, Board} from './components/Header';
+import React from "react";
 import { BoardContainer } from './components/BoardContainer';
 
 function App() {
-  const [currScore, setCurrScore] = useState(0);
-  const [bestScore, setBestScore] = useState(0);
-  const [maxScore, setMaxScore] = useState(0);
-  let isNew = true;
 
   return (
-  isNew ?
   <div className='flex justify-center items-start min-h-screen  mx-[20px]'>
     <BoardContainer/> 
-  </div> :
-    <div>
-      <Header currScore={currScore} bestScore={bestScore} maxScore={maxScore}/>
-      <Board  setCurrScore = {[currScore, setCurrScore]} 
-              setBestScore = {[bestScore, setBestScore]}
-              setMaxScore = {setMaxScore}/>
-    </div>
+  </div> 
   );
 }
 

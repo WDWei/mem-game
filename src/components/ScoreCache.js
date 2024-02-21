@@ -13,7 +13,6 @@ export function getScoreCache() {
     catch(e){
         console.error(e.message);
     }
-    console.log(ScoreCache)
     return ScoreCache;
 }
 

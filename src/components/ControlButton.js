@@ -30,8 +30,6 @@ function RetryGameButton({}) {
 
 
 function ControlButton({gameState, isCardFront, handleGame}) {
-    console.log('state',gameState);
-    console.log('isCardFront',isCardFront);
     function gameStateHandler(gameState){
         switch(gameState) {
             case 'start':
